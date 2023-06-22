@@ -1,0 +1,9 @@
+[
+  {
+    "id": 1,
+    "promotion": "FastTrackIT",
+    "members": ["Nicolae Matei,", "Andrei Ille"],
+    "projectName": "Teams Networking",
+    "projectURL": "nmatei/teams-networking"
+  }
+]
