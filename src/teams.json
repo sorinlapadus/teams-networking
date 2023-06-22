@@ -2,8 +2,15 @@
   {
     "id": 1,
     "promotion": "FastTrackIT",
-    "members": ["Nicolae Matei,", "Andrei Ille"],
+    "members": ["Nicolae Matei", "Andrei Ille"],
     "projectName": "Teams Networking",
     "projectURL": "nmatei/teams-networking"
+  },
+  {
+    "id": 2,
+    "promotion": "2021-won1",
+    "members": ["Coman Oana", "Adina Bîlc", "Bianca Vesa"],
+    "projectName": "Medical Inventory store",
+    "projectURL": "comanoana/medstore"
   }
 ]
