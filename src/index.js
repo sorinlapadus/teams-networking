@@ -1,1 +1,1 @@
-console_warn("Starting app...");
+console.warn("Starting app...");
