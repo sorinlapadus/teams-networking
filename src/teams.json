@@ -12,5 +12,12 @@
     "members": ["Coman Oana", "Adina Bîlc", "Bianca Vesa"],
     "projectName": "Medical Inventory store",
     "projectURL": "comanoana/medstore"
+  },
+  {
+    "id": 3,
+    "promotion": "2021-won1",
+    "members": ["Cristi Cosma", "Reka Kovacs", "Simona Glodean"],
+    "projectName": "DOCS Generator",
+    "projectURL": "CristiCozma/docsgenerator"
   }
 ]
