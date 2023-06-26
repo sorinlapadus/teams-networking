@@ -46,6 +46,11 @@ function onSubmit(e) {
   }
 }
 
+function onReset(e) {
+  console.warn("onReset");
+  teamEditId = null;
+}
+
 function initEvents() {
   const tbody = $("#teamsTable tbody").addEventListener("click", e => {
     if (e.target.matches("a.remove-btn")) {
@@ -65,6 +70,7 @@ function initEvents() {
   });
 
   $("#teamsForm").addEventListener("submit", onSubmit);
+  $("#teamsForm").addEventListener("reset", onReset);
 }
 
 function displayTeams(teams) {
