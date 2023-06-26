@@ -1,6 +1,8 @@
 import "./style.css";
 console.warn("Starting app...");
 
+let allTeams = [];
+
 function $(selector) {
   return document, document.querySelector(selector);
 }
@@ -29,18 +31,10 @@ function initEvents() {
           loadTeams();
         }
       });
-    }
-    if (e.target.matches("a.edit-btn")) {
+    } else if (e.target.matches("a.edit-btn")) {
       const id = e.target.dataset.id;
       console.warn("will update %o", id);
-      updateTeamRequest(id, window.promotion.value, window.members.value, window.name1.value, window.url.value).then(
-        status => {
-          if (status.success) {
-            console.warn("update done", status);
-            loadTeams();
-          }
-        }
-      );
+      startEdit(id);
     }
   });
 }
@@ -59,6 +53,7 @@ function loadTeams() {
   })
     .then(r => r.json())
     .then(teams => {
+      allTeams = teams;
       displayTeams(teams);
     });
 }
@@ -87,6 +82,16 @@ function updateTeamRequest(id, promotion, members, name, url) {
       url: url
     })
   }).then(r => r.json());
+}
+
+function startEdit(id) {
+  console.warn("startEdit", id);
+  const team = allTeams.find(team => team.id == id);
+  console.warn(team);
+  $("#promotion").value = team.promotion;
+  $("#members").value = team.members;
+  $("#name").value = team.name;
+  $("#url").value = team.url;
 }
 
 initEvents();
