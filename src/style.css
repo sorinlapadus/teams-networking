@@ -65,7 +65,7 @@ h1 {
   color: #057988;
 }
 
-a.delete-btn:hover {
+a.remove-btn:hover {
   cursor: pointer;
   text-decoration: underline;
   color: #b90303;
