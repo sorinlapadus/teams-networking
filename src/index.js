@@ -11,8 +11,17 @@ function getTeamAsHTML(team) {
     <td>${team.members}</td>
     <td>${team.projectName}</td>
     <td>${team.projectURL}</td>
-    <td>x &#9998;</td>
+    <td>
+    <a class="delete-row">x</a>
+    <a class="edit-row">&#9998;</a>
+    </td>
     </tr>`;
+}
+
+function initEvents() {
+  const tbody = $("#teamsTable tbody").addEventListener("click", e => {
+    console.warn(e);
+  });
 }
 
 function displayTeams(teams) {
@@ -32,4 +41,5 @@ function loadTeams() {
       displayTeams(teams);
     });
 }
+initEvents();
 loadTeams();
