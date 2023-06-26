@@ -2,6 +2,7 @@ import "./style.css";
 console.warn("Starting app...");
 
 let allTeams = [];
+let teamEditId = null;
 
 function $(selector) {
   return document, document.querySelector(selector);
@@ -18,6 +19,22 @@ function getTeamAsHTML(team) {
     <a data-id="${team.id}" class="edit-btn">&#9998;</a>
     </td>
     </tr>`;
+}
+
+function onSubmit(e) {
+  e.preventDefault();
+  console.warn("onSubmit", e);
+  const promotion = $("#promotion").value;
+  const members = $("#members").value;
+  const name = $("#name").value;
+  const url = $("#url").value;
+  const team = { id: teamEditId, promotion: promotion, members: members, name: name, url: url };
+  updateTeamRequest(team).then(status => {
+    if (status.success) {
+      console.warn("update done");
+      loadTeams();
+    }
+  });
 }
 
 function initEvents() {
@@ -37,6 +54,8 @@ function initEvents() {
       startEdit(id);
     }
   });
+
+  $("#teamsForm").addEventListener("submit", onSubmit);
 }
 
 function displayTeams(teams) {
@@ -68,19 +87,13 @@ function deleteTeamRequest(id) {
   }).then(r => r.json());
 }
 
-function updateTeamRequest(id, promotion, members, name, url) {
+function updateTeamRequest(team) {
   return fetch("http://localhost:3000/teams-json/update", {
     method: "PUT",
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({
-      id: id,
-      promotion: promotion,
-      members: members,
-      name: name,
-      url: url
-    })
+    body: JSON.stringify(team)
   }).then(r => r.json());
 }
 
@@ -92,6 +105,7 @@ function startEdit(id) {
   $("#members").value = team.members;
   $("#name").value = team.name;
   $("#url").value = team.url;
+  teamEditId = id;
 }
 
 initEvents();
