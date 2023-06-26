@@ -64,3 +64,24 @@ h1 {
   border: 1px solid;
   color: #057988;
 }
+
+a.delete-row:hover {
+  cursor: pointer;
+  text-decoration: underline;
+  color: #b90303;
+}
+a.edit-row:hover {
+  cursor: pointer;
+  text-decoration: underline;
+  color: #039903;
+}
+a {
+  color: #0096d6;
+  text-decoration: none;
+}
+a:visited {
+  color: #02638d;
+}
+a:hover {
+  text-decoration: underline;
+}
