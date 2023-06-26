@@ -31,8 +31,7 @@ function onSubmit(e) {
   const team = { id: teamEditId, promotion: promotion, members: members, name: name, url: url };
   updateTeamRequest(team).then(status => {
     if (status.success) {
-      console.warn("update done");
-      loadTeams();
+      window.location.reload();
     }
   });
 }
