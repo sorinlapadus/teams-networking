@@ -28,12 +28,22 @@ function onSubmit(e) {
   const members = $("#members").value;
   const name = $("#name").value;
   const url = $("#url").value;
-  const team = { id: teamEditId, promotion: promotion, members: members, name: name, url: url };
-  updateTeamRequest(team).then(status => {
-    if (status.success) {
-      window.location.reload();
-    }
-  });
+  const team = { promotion: promotion, members: members, name: name, url: url };
+
+  if (teamEditId) {
+    team.id = teamEditId;
+    updateTeamRequest(team).then(status => {
+      if (status.success) {
+        window.location.reload();
+      }
+    });
+  } else {
+    createTeamRequest(team).then(status => {
+      if (status.success) {
+        window.location.reload();
+      }
+    });
+  }
 }
 
 function initEvents() {
@@ -89,6 +99,16 @@ function deleteTeamRequest(id) {
 function updateTeamRequest(team) {
   return fetch("http://localhost:3000/teams-json/update", {
     method: "PUT",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(team)
+  }).then(r => r.json());
+}
+
+function createTeamRequest(team) {
+  return fetch("http://localhost:3000/teams-json/create", {
+    method: "POST",
     headers: {
       "Content-Type": "application/json"
     },
