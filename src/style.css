@@ -65,12 +65,12 @@ h1 {
   color: #057988;
 }
 
-a.delete-row:hover {
+a.delete-btn:hover {
   cursor: pointer;
   text-decoration: underline;
   color: #b90303;
 }
-a.edit-row:hover {
+a.edit-btn:hover {
   cursor: pointer;
   text-decoration: underline;
   color: #039903;

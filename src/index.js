@@ -12,15 +12,15 @@ function getTeamAsHTML(team) {
     <td>${team.projectName}</td>
     <td>${team.projectURL}</td>
     <td>
-    <a class="delete-row">x</a>
-    <a class="edit-row">&#9998;</a>
+    <a class="delete-btn">x</a>
+    <a class="edit-btn">&#9998;</a>
     </td>
     </tr>`;
 }
 
 function initEvents() {
   const tbody = $("#teamsTable tbody").addEventListener("click", e => {
-    console.warn(e);
+    console.warn(e.target);
   });
 }
 
