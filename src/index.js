@@ -30,6 +30,18 @@ function initEvents() {
         }
       });
     }
+    if (e.target.matches("a.edit-btn")) {
+      const id = e.target.dataset.id;
+      console.warn("will update %o", id);
+      updateTeamRequest(id, window.promotion.value, window.members.value, window.name1.value, window.url.value).then(
+        status => {
+          if (status.success) {
+            console.warn("update done", status);
+            loadTeams();
+          }
+        }
+      );
+    }
   });
 }
 
@@ -60,5 +72,22 @@ function deleteTeamRequest(id) {
     body: JSON.stringify({ id: id })
   }).then(r => r.json());
 }
+
+function updateTeamRequest(id, promotion, members, name, url) {
+  return fetch("http://localhost:3000/teams-json/update", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      id: id,
+      promotion: promotion,
+      members: members,
+      name: name,
+      url: url
+    })
+  }).then(r => r.json());
+}
+
 initEvents();
 loadTeams();
