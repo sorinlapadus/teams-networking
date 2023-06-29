@@ -58,12 +58,6 @@ function filterElements(elements, search) {
   });
 }
 
-function onSearchTeams(e) {
-  const searchText = e.target.value;
-  const filteredTeams = filterElements(allTeams, searchText);
-  displayTeams(filteredTeams);
-}
-
 function initEvents() {
   $("#teamsTable tbody").addEventListener("click", e => {
     if (e.target.matches("a.remove-btn")) {
@@ -81,7 +75,12 @@ function initEvents() {
 
   $("#teamsForm").addEventListener("submit", onSubmit);
   $("#teamsForm").addEventListener("reset", onReset);
-  $("#searchTeams").addEventListener("input", onSearchTeams);
+
+  $("#searchTeams").addEventListener("input", e => {
+    const searchText = e.target.value;
+    const filteredTeams = filterElements(allTeams, searchText);
+    displayTeams(filteredTeams);
+  });
 }
 
 function displayTeams(teams) {
