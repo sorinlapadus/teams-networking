@@ -52,13 +52,23 @@ function onReset(e) {
 }
 
 function onSearchTeams(e) {
-  let searchText = e.target.value;
+  let searchText = e.target.value.toLowerCase();
   console.warn("onSearchTeams", searchText);
   console.warn("onSearchTeams", allTeams);
+  var filteredTeams = allTeams.filter(team => {
+    return (
+      team.promotion.toLowerCase().includes(searchText) ||
+      team.members.toLowerCase().includes(searchText) ||
+      team.name.toLowerCase().includes(searchText) ||
+      team.url.toLowerCase().includes(searchText)
+    );
+  });
+  console.warn("filteredTeams", filteredTeams);
+  displayTeams(filteredTeams);
 }
 
 function initEvents() {
-  const tbody = $("#teamsTable tbody").addEventListener("click", e => {
+  $("#teamsTable tbody").addEventListener("click", e => {
     if (e.target.matches("a.remove-btn")) {
       const id = e.target.dataset.id;
       console.warn("will remove %o", id);
