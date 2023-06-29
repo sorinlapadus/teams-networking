@@ -36,13 +36,21 @@ function onSubmit(e) {
     team.id = teamEditId;
     updateTeamRequest(team).then(status => {
       if (status.success) {
-        window.location.reload();
+        //v1
+        //window.location.reload();
+        //v2
+        loadTeams();
+        $("#teamsForm").reset();
       }
     });
   } else {
     createTeamRequest(team).then(status => {
       if (status.success) {
-        window.location.reload();
+        //v1
+        //window.location.reload();
+        //v2
+        loadTeams();
+        $("#teamsForm").reset();
       }
     });
   }
