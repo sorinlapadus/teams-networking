@@ -123,3 +123,16 @@ a:hover {
 tfoot td {
   justify-content: center;
 }
+
+.tbar {
+  margin-bottom: 5px;
+}
+.tbar-lr {
+  display: flex;
+}
+.tbar-left {
+  flex: 1;
+}
+.tbar-right {
+  margin-left: 20px;
+}
