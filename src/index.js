@@ -51,6 +51,12 @@ function onReset(e) {
   teamEditId = undefined;
 }
 
+function onSearchTeams(e) {
+  let searchText = e.target.value;
+  console.warn("onSearchTeams", searchText);
+  console.warn("onSearchTeams", allTeams);
+}
+
 function initEvents() {
   const tbody = $("#teamsTable tbody").addEventListener("click", e => {
     if (e.target.matches("a.remove-btn")) {
@@ -71,6 +77,7 @@ function initEvents() {
 
   $("#teamsForm").addEventListener("submit", onSubmit);
   $("#teamsForm").addEventListener("reset", onReset);
+  $("#searchTeams").addEventListener("input", onSearchTeams);
 }
 
 function displayTeams(teams) {
