@@ -61,7 +61,9 @@ function initEvents() {
   $("#teamsTable tbody").addEventListener("click", e => {
     if (e.target.matches("a.remove-btn")) {
       const id = e.target.dataset.id;
-      deleteTeamRequest(id).then(status => {
+      deleteTeamRequest(id, x => {
+        console.warn("delete callback");
+      }).then(status => {
         if (status.success) {
           loadTeams();
         }
@@ -73,7 +75,7 @@ function initEvents() {
   });
 
   $("#teamsForm").addEventListener("submit", onSubmit);
-  $("#teamsForm").addEventListener("reset", e => {
+  $("#teamsForm").addEventListener("reset", () => {
     teamEditId = undefined;
   });
 
@@ -103,14 +105,19 @@ function loadTeams() {
     });
 }
 
-function deleteTeamRequest(id) {
+function deleteTeamRequest(id, callback) {
   return fetch("http://localhost:3000/teams-json/delete", {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json"
     },
     body: JSON.stringify({ id: id })
-  }).then(r => r.json());
+  })
+    .then(r => r.json())
+    .then(status => {
+      if (typeof callback === "function") callback(status);
+      return status;
+    });
 }
 
 function updateTeamRequest(team) {
