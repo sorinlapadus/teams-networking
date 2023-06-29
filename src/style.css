@@ -48,6 +48,7 @@ header h2 {
 
 #main {
   flex: 1;
+  padding: 15px;
 }
 footer {
   padding: 10px;
@@ -77,12 +78,24 @@ h1 {
 #teamsTable {
   width: 100%;
   border-collapse: collapse;
+  padding: 15px;
+}
+
+#teamsTable tr:nth-child(even) {
+  background-color: white;
+}
+#teamsTable tr:nth-child(odd) {
+  background-color: lightgray;
 }
 
 #teamsTable th,
 #teamsTable td {
   border: 1px solid;
-  color: #057988;
+  /*color: #057988;*/
+}
+
+#teamsTable tfoot input[type="text"] {
+  width: 100%;
 }
 
 a.remove-btn:hover {
