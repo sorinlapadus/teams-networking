@@ -48,7 +48,7 @@ function onSubmit(e) {
 
 function onReset(e) {
   console.warn("onReset");
-  teamEditId = null;
+  teamEditId = undefined;
 }
 
 function initEvents() {
