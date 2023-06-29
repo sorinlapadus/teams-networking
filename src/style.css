@@ -95,7 +95,8 @@ h1 {
 }
 
 #teamsTable tfoot input[type="text"] {
-  width: 100%;
+  align-self: center;
+  width: 97%;
 }
 
 a.remove-btn:hover {
