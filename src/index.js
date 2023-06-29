@@ -21,14 +21,17 @@ function getTeamAsHTML(team) {
     </tr>`;
 }
 
-function onSubmit(e) {
-  e.preventDefault();
+function getTeamValues() {
   const promotion = $("#promotion").value;
   const members = $("#members").value;
   const name = $("#name").value;
   const url = $("#url").value;
-  const team = { promotion: promotion, members: members, name: name, url: url };
+  return { promotion: promotion, members: members, name: name, url: url };
+}
 
+function onSubmit(e) {
+  e.preventDefault();
+  const team = getTeamValues();
   if (teamEditId) {
     team.id = teamEditId;
     updateTeamRequest(team).then(status => {
@@ -132,12 +135,16 @@ function createTeamRequest(team) {
   }).then(r => r.json());
 }
 
-function startEdit(id) {
-  const team = allTeams.find(team => team.id == id);
+function setTeamValues(team) {
   $("#promotion").value = team.promotion;
   $("#members").value = team.members;
   $("#name").value = team.name;
   $("#url").value = team.url;
+}
+
+function startEdit(id) {
+  const team = allTeams.find(team => team.id == id);
+  setTeamValues(team);
   teamEditId = id;
 }
 
