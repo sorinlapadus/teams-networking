@@ -49,18 +49,18 @@ function onReset(e) {
   teamEditId = undefined;
 }
 
-function filterTeams(allTeams, searchText) {
-  searchText = searchText.toLowerCase();
-  return allTeams.filter(team => {
-    return Object.entries(team).some(entry => {
-      if (entry[0] !== "id") return entry[1].toLowerCase().includes(searchText);
+function filterElements(elements, search) {
+  search = search.toLowerCase();
+  return elements.filter(element => {
+    return Object.entries(element).some(entry => {
+      if (entry[0] !== "id") return entry[1].toLowerCase().includes(search);
     });
   });
 }
 
 function onSearchTeams(e) {
   const searchText = e.target.value;
-  const filteredTeams = filterTeams(allTeams, searchText);
+  const filteredTeams = filterElements(allTeams, searchText);
   displayTeams(filteredTeams);
 }
 
