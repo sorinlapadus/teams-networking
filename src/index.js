@@ -23,7 +23,6 @@ function getTeamAsHTML(team) {
 
 function onSubmit(e) {
   e.preventDefault();
-  console.warn("onSubmit", e);
   const promotion = $("#promotion").value;
   const members = $("#members").value;
   const name = $("#name").value;
@@ -47,11 +46,11 @@ function onSubmit(e) {
 }
 
 function onReset(e) {
-  console.warn("onReset");
   teamEditId = undefined;
 }
 
 function filterTeams(allTeams, searchText) {
+  searchText = searchText.toLowerCase();
   return allTeams.filter(team => {
     return Object.entries(team).some(entry => {
       if (entry[0] !== "id") return entry[1].toLowerCase().includes(searchText);
@@ -60,7 +59,7 @@ function filterTeams(allTeams, searchText) {
 }
 
 function onSearchTeams(e) {
-  const searchText = e.target.value.toLowerCase();
+  const searchText = e.target.value;
   const filteredTeams = filterTeams(allTeams, searchText);
   displayTeams(filteredTeams);
 }
@@ -69,16 +68,13 @@ function initEvents() {
   $("#teamsTable tbody").addEventListener("click", e => {
     if (e.target.matches("a.remove-btn")) {
       const id = e.target.dataset.id;
-      console.warn("will remove %o", id);
       deleteTeamRequest(id).then(status => {
         if (status.success) {
-          console.warn("delete done", status);
           loadTeams();
         }
       });
     } else if (e.target.matches("a.edit-btn")) {
       const id = e.target.dataset.id;
-      console.warn("will update %o", id);
       startEdit(id);
     }
   });
@@ -138,9 +134,7 @@ function createTeamRequest(team) {
 }
 
 function startEdit(id) {
-  console.warn("startEdit", id);
   const team = allTeams.find(team => team.id == id);
-  console.warn(team);
   $("#promotion").value = team.promotion;
   $("#members").value = team.members;
   $("#name").value = team.name;
