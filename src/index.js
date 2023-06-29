@@ -48,10 +48,6 @@ function onSubmit(e) {
   }
 }
 
-function onReset(e) {
-  teamEditId = undefined;
-}
-
 function filterElements(elements, search) {
   search = search.toLowerCase();
   return elements.filter(element => {
@@ -77,7 +73,9 @@ function initEvents() {
   });
 
   $("#teamsForm").addEventListener("submit", onSubmit);
-  $("#teamsForm").addEventListener("reset", onReset);
+  $("#teamsForm").addEventListener("reset", e => {
+    teamEditId = undefined;
+  });
 
   $("#searchTeams").addEventListener("input", e => {
     const searchText = e.target.value;
