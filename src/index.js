@@ -51,14 +51,17 @@ function onReset(e) {
   teamEditId = undefined;
 }
 
-function onSearchTeams(e) {
-  const searchText = e.target.value.toLowerCase();
-  var filteredTeams = allTeams.filter(team => {
-    const matches = Object.entries(team).some(entry => {
+function filterTeams(allTeams, searchText) {
+  return allTeams.filter(team => {
+    return Object.entries(team).some(entry => {
       if (entry[0] !== "id") return entry[1].toLowerCase().includes(searchText);
     });
-    return matches;
   });
+}
+
+function onSearchTeams(e) {
+  const searchText = e.target.value.toLowerCase();
+  const filteredTeams = filterTeams(allTeams, searchText);
   displayTeams(filteredTeams);
 }
 
