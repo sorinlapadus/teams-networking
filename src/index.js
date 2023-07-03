@@ -37,7 +37,9 @@ function onSubmit(e) {
     updateTeamRequest(team).then(status => {
       if (status.success) {
         allTeams = allTeams.map(t => {
-          if (t.id === teamEditId) return { ...t, ...team };
+          if (t.id === teamEditId) {
+            return { ...t, ...team };
+          }
           return t;
         });
         displayTeams(allTeams);
