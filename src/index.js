@@ -36,9 +36,10 @@ function onSubmit(e) {
     team.id = teamEditId;
     updateTeamRequest(team).then(status => {
       if (status.success) {
-        allTeams = [...allTeams];
-        const element = allTeams.find(t => t.id == teamEditId);
-        Object.assign(element, team);
+        allTeams = allTeams.map(t => {
+          if (t.id === teamEditId) return { ...t, ...team };
+          return t;
+        });
         displayTeams(allTeams);
         $("#teamsForm").reset();
       }
