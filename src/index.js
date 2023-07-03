@@ -39,7 +39,10 @@ function onSubmit(e) {
         //v1
         //window.location.reload();
         //v2
-        loadTeams();
+        //loadTeams();
+        const i = allTeams.findIndex(t => t.id == teamEditId);
+        allTeams[i] = team;
+        displayTeams(allTeams);
         $("#teamsForm").reset();
       }
     });
