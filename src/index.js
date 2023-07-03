@@ -100,7 +100,7 @@ function displayTeams(teams) {
     console.warn("displayTeams: no need to display, same teams");
     return;
   }
-  if (previewDisplayTeams.length === teams.length) {
+  if (teams.length === previewDisplayTeams.length) {
     if (
       teams.every((team, i) => {
         return team === previewDisplayTeams[i];
