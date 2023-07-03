@@ -36,10 +36,6 @@ function onSubmit(e) {
     team.id = teamEditId;
     updateTeamRequest(team).then(status => {
       if (status.success) {
-        //v1
-        //window.location.reload();
-        //v2
-        //loadTeams();
         const element = allTeams.find(t => t.id == teamEditId);
         Object.assign(element, team);
         displayTeams(allTeams);
@@ -49,10 +45,9 @@ function onSubmit(e) {
   } else {
     createTeamRequest(team).then(status => {
       if (status.success) {
-        //v1
-        //window.location.reload();
-        //v2
-        loadTeams();
+        team.id = status.id;
+        allTeams.push(team);
+        displayTeams(allTeams);
         $("#teamsForm").reset();
       }
     });
