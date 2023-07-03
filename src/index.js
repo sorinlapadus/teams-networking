@@ -36,6 +36,7 @@ function onSubmit(e) {
     team.id = teamEditId;
     updateTeamRequest(team).then(status => {
       if (status.success) {
+        allTeams = [...allTeams];
         const element = allTeams.find(t => t.id == teamEditId);
         Object.assign(element, team);
         displayTeams(allTeams);
