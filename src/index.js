@@ -40,8 +40,8 @@ function onSubmit(e) {
         //window.location.reload();
         //v2
         //loadTeams();
-        const i = allTeams.findIndex(t => t.id == teamEditId);
-        allTeams[i] = team;
+        const element = allTeams.find(t => t.id == teamEditId);
+        Object.assign(element, team);
         displayTeams(allTeams);
         $("#teamsForm").reset();
       }
