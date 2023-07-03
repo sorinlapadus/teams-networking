@@ -46,7 +46,7 @@ function onSubmit(e) {
     createTeamRequest(team).then(status => {
       if (status.success) {
         team.id = status.id;
-        allTeams.push(team);
+        allTeams = [...allTeams, team];
         displayTeams(allTeams);
         $("#teamsForm").reset();
       }
@@ -92,7 +92,13 @@ function initEvents() {
   });
 }
 
+let previewDisplayTeams = [];
 function displayTeams(teams) {
+  if (previewDisplayTeams === teams) {
+    console.warn("displayTeams: same teams");
+    return;
+  }
+  previewDisplayTeams = teams;
   const teamsHTML = teams.map(getTeamAsHTML);
   $("#teamsTable tbody").innerHTML = teamsHTML.join("");
 }
