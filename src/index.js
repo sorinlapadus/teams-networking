@@ -95,9 +95,19 @@ function initEvents() {
 
 let previewDisplayTeams = [];
 function displayTeams(teams) {
-  if (previewDisplayTeams === teams) {
-    console.warn("displayTeams: same teams");
+  if (teams === previewDisplayTeams) {
+    console.warn("displayTeams: no need to display, same teams");
     return;
+  }
+  if (previewDisplayTeams.length === teams.length) {
+    if (
+      teams.every((team, i) => {
+        return team === previewDisplayTeams[i];
+      })
+    ) {
+      console.warn("displayTeams: no need to display, same content");
+      return;
+    }
   }
   previewDisplayTeams = teams;
   const teamsHTML = teams.map(getTeamAsHTML);
