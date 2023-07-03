@@ -8,15 +8,15 @@ function $(selector) {
   return document, document.querySelector(selector);
 }
 
-function getTeamAsHTML(team) {
+function getTeamAsHTML({ id, url, promotion, members, name }) {
   return `<tr>
-    <td>${team.promotion}</td>
-    <td>${team.members}</td>
-    <td>${team.name}</td>
-    <td>${team.url}</td>
+    <td>${promotion}</td>
+    <td>${members}</td>
+    <td>${name}</td>
+    <td><a href="${url}" target="_blank">${url}</a></td>
     <td>
-    <a data-id="${team.id}" class="remove-btn">x</a>
-    <a data-id="${team.id}" class="edit-btn">&#9998;</a>
+    <a data-id="${id}" class="remove-btn">x</a>
+    <a data-id="${id}" class="edit-btn">&#9998;</a>
     </td>
     </tr>`;
 }
