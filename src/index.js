@@ -73,11 +73,10 @@ function initEvents() {
   $("#teamsTable tbody").addEventListener("click", e => {
     if (e.target.matches("a.remove-btn")) {
       const id = e.target.dataset.id;
-      deleteTeamRequest(id, x => {
-        console.warn("delete callback");
-      }).then(status => {
-        if (status.success) {
-          loadTeams();
+      deleteTeamRequest(id, async ({ success }) => {
+        if (success) {
+          await loadTeams();
+          hideLoadingMask();
         }
       });
     } else if (e.target.matches("a.edit-btn")) {
@@ -199,9 +198,17 @@ function sleep(ms) {
 })();
 
 (async () => {
-  $("#teamsForm").classList.add("loading-mask");
+  showLoadingMask();
   await sleep(5000);
 })();
+
+function showLoadingMask() {
+  $("#teamsForm").classList.add("loading-mask");
+}
+
+function hideLoadingMask() {
+  $("#teamsForm").classList.remove("loading-mask");
+}
 
 initEvents();
 
@@ -210,5 +217,5 @@ initEvents();
   // $("#teamsForm").classList.remove("loading-mask");
   //});
   await loadTeams();
-  $("#teamsForm").classList.remove("loading-mask");
+  hideLoadingMask();
 })();
