@@ -29,23 +29,24 @@ function getTeamValues() {
   return { promotion: promotion, members: members, name: name, url: url };
 }
 
-function onSubmit(e) {
+async function onSubmit(e) {
   e.preventDefault();
   const team = getTeamValues();
   if (teamEditId) {
     team.id = teamEditId;
-    updateTeamRequest(team).then(status => {
-      if (status.success) {
-        allTeams = allTeams.map(t => {
-          if (t.id === teamEditId) {
-            return { ...t, ...team };
-          }
-          return t;
-        });
-        displayTeams(allTeams);
-        $("#teamsForm").reset();
-      }
-    });
+    console.time("update");
+    const { success } = await updateTeamRequest(team);
+    console.timeEnd("update");
+    if (success) {
+      allTeams = allTeams.map(t => {
+        if (t.id === teamEditId) {
+          return { ...t, ...team };
+        }
+        return t;
+      });
+      displayTeams(allTeams);
+      $("#teamsForm").reset();
+    }
   } else {
     createTeamRequest(team).then(status => {
       if (status.success) {
