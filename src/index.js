@@ -32,29 +32,32 @@ function getTeamValues() {
 async function onSubmit(e) {
   e.preventDefault();
   const team = getTeamValues();
+  let status;
   if (teamEditId) {
     team.id = teamEditId;
     console.time("update");
-    const { success } = await updateTeamRequest(team);
+    status = await updateTeamRequest(team);
     console.timeEnd("update");
-    if (success) {
+    if (status.success) {
       allTeams = allTeams.map(t => {
         if (t.id === teamEditId) {
           return { ...t, ...team };
         }
         return t;
       });
-      displayTeams(allTeams);
-      $("#teamsForm").reset();
     }
   } else {
-    const status = await createTeamRequest(team);
+    status = await createTeamRequest(team);
     if (status.success) {
       team.id = status.id;
       allTeams = [...allTeams, team];
-      displayTeams(allTeams);
-      $("#teamsForm").reset();
     }
+  }
+
+  if (status.success) {
+    displayTeams(allTeams);
+    $("#teamsForm").reset();
+    hideLoadingMask();
   }
 }
 
