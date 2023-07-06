@@ -119,18 +119,13 @@ function displayTeams(teams) {
   $("#teamsTable tbody").innerHTML = teamsHTML.join("");
 }
 
-function loadTeams() {
-  fetch("http://localhost:3000/teams-json", {
+function loadTeamsRequest() {
+  return fetch("http://localhost:3000/teams-json", {
     method: "GET",
     headers: {
       "Content-Type": "application/json"
     }
-  })
-    .then(r => r.json())
-    .then(teams => {
-      allTeams = teams;
-      displayTeams(teams);
-    });
+  }).then(r => r.json());
 }
 
 function deleteTeamRequest(id, callback) {
@@ -168,6 +163,14 @@ function createTeamRequest(team) {
   }).then(r => r.json());
 }
 
+function loadTeams() {
+  return loadTeamsRequest().then(teams => {
+    allTeams = teams;
+    displayTeams(teams);
+    return allTeams;
+  });
+}
+
 function setTeamValues(team) {
   $("#promotion").value = team.promotion;
   $("#members").value = team.members;
@@ -195,7 +198,17 @@ function sleep(ms) {
   console.warn("ready to do %o", "next job");
 })();
 
+(async () => {
+  $("#teamsForm").classList.add("loading-mask");
+  await sleep(5000);
+})();
+
 initEvents();
-$("#teamsForm").classList.add("loading-mask");
-loadTeams();
-$("#teamsForm").classList.remove("loading-mask");
+
+(async () => {
+  //loadTeams().then(() => {
+  // $("#teamsForm").classList.remove("loading-mask");
+  //});
+  await loadTeams();
+  $("#teamsForm").classList.remove("loading-mask");
+})();
