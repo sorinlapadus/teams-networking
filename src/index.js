@@ -181,5 +181,21 @@ function startEdit(id) {
   teamEditId = id;
 }
 
+function sleep(ms) {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve();
+    }, ms);
+  });
+}
+
+(() => {
+  console.warn("before sleep");
+  sleep(2000).then(() => {
+    console.warn("ready to do %o", "next job");
+  });
+  console.warn("after sleep");
+})();
+
 initEvents();
 loadTeams();
