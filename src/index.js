@@ -189,12 +189,10 @@ function sleep(ms) {
   });
 }
 
-(() => {
-  console.warn("before sleep");
-  sleep(2000).then(() => {
-    console.warn("ready to do %o", "next job");
-  });
-  console.warn("after sleep");
+(async () => {
+  console.warn("start sleep");
+  await sleep(2000);
+  console.warn("ready to do %o", "next job");
 })();
 
 initEvents();
