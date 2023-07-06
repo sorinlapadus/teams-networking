@@ -48,14 +48,13 @@ async function onSubmit(e) {
       $("#teamsForm").reset();
     }
   } else {
-    createTeamRequest(team).then(status => {
-      if (status.success) {
-        team.id = status.id;
-        allTeams = [...allTeams, team];
-        displayTeams(allTeams);
-        $("#teamsForm").reset();
-      }
-    });
+    const status = await createTeamRequest(team);
+    if (status.success) {
+      team.id = status.id;
+      allTeams = [...allTeams, team];
+      displayTeams(allTeams);
+      $("#teamsForm").reset();
+    }
   }
 }
 
