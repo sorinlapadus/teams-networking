@@ -196,4 +196,6 @@ function sleep(ms) {
 })();
 
 initEvents();
+$("#teamsForm").classList.add("loading-mask");
 loadTeams();
+$("#teamsForm").classList.remove("loading-mask");
