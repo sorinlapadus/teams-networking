@@ -1,13 +1,10 @@
 import "./style.css";
+import { $, filterElements, mask, unmask, sleep } from "./utilities";
 console.warn("Starting app...");
 
 let allTeams = [];
 let teamEditId = null;
-
-function $(selector) {
-  return document, document.querySelector(selector);
-}
-
+const form = "#teamsForm";
 function getTeamAsHTML({ id, url, promotion, members, name }) {
   return `<tr>
     <td>${promotion}</td>
@@ -57,19 +54,8 @@ async function onSubmit(e) {
   if (status.success) {
     displayTeams(allTeams);
     $("#teamsForm").reset();
-    hideLoadingMask();
+    unmask(form);
   }
-}
-
-function filterElements(elements, search) {
-  search = search.toLowerCase();
-  return elements.filter(element => {
-    return Object.entries(element).some(([key, value]) => {
-      if (key !== "id") {
-        return value.toLowerCase().includes(search);
-      }
-    });
-  });
 }
 
 function initEvents() {
@@ -79,7 +65,7 @@ function initEvents() {
       deleteTeamRequest(id, async ({ success }) => {
         if (success) {
           await loadTeams();
-          hideLoadingMask();
+          unmask(form);
         }
       });
     } else if (e.target.matches("a.edit-btn")) {
@@ -186,14 +172,6 @@ function startEdit(id) {
   teamEditId = id;
 }
 
-function sleep(ms) {
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve();
-    }, ms);
-  });
-}
-
 (async () => {
   console.warn("start sleep");
   await sleep(2000);
@@ -201,17 +179,9 @@ function sleep(ms) {
 })();
 
 (async () => {
-  showLoadingMask();
+  mask(form);
   await sleep(5000);
 })();
-
-function showLoadingMask() {
-  $("#teamsForm").classList.add("loading-mask");
-}
-
-function hideLoadingMask() {
-  $("#teamsForm").classList.remove("loading-mask");
-}
 
 initEvents();
 
@@ -220,5 +190,5 @@ initEvents();
   // $("#teamsForm").classList.remove("loading-mask");
   //});
   await loadTeams();
-  hideLoadingMask();
+  unmask(form);
 })();
