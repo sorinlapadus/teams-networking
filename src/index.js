@@ -81,11 +81,26 @@ function initEvents() {
     teamEditId = undefined;
   });
 
-  $("#searchTeams").addEventListener("input", e => {
-    const searchText = e.target.value;
-    const filteredTeams = filterElements(allTeams, searchText);
-    displayTeams(filteredTeams);
-  });
+  let timer;
+
+  function debounce(fn, msec) {
+    return function (e) {
+      //console.warn("searching...", e.target.value);
+      clearTimeout(timer);
+      setTimeout(function () {
+        fn(e);
+      }, msec);
+    };
+  }
+
+  $("#searchTeams").addEventListener(
+    "input",
+    debounce(e => {
+      const searchText = e.target.value;
+      const filteredTeams = filterElements(allTeams, searchText);
+      displayTeams(filteredTeams);
+    }, 400)
+  );
 }
 
 let previewDisplayTeams = [];
