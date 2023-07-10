@@ -1,5 +1,5 @@
 import "./style.css";
-import { $, filterElements, mask, unmask, sleep } from "./utilities";
+import { $, filterElements, mask, unmask, sleep, debounce } from "./utilities";
 import { loadTeamsRequest, deleteTeamRequest, createTeamRequest } from "./middleware";
 //import * as middleware from "./middleware";
 console.warn("Starting app...");
@@ -87,20 +87,9 @@ function initEvents() {
     teamEditId = undefined;
   });
 
-  function debounce(fn, msec) {
-    let timer;
-    return function (e) {
-      //console.warn("searching...", e.target.value);
-      clearTimeout(timer);
-      setTimeout(function () {
-        fn(e);
-      }, msec);
-    };
-  }
-
   $("#searchTeams").addEventListener(
     "input",
-    debounce(e => {
+    debounce(function (e) {
       const searchText = e.target.value;
       const filteredTeams = filterElements(allTeams, searchText);
       displayTeams(filteredTeams);

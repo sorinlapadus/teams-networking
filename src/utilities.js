@@ -30,3 +30,14 @@ export function sleep(ms) {
     }, ms);
   });
 }
+export function debounce(fn, msec) {
+  let timer;
+  return function (e) {
+    const context = this;
+    const args = arguments;
+    clearTimeout(timer);
+    setTimeout(function () {
+      fn.apply(context, args);
+    }, msec);
+  };
+}
