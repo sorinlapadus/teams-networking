@@ -1,6 +1,6 @@
 import "./style.css";
-import { $, filterElements, mask, unmask, sleep } from "./utilities";
-import { loadTeamsRequest, deleteTeamRequest, createTeamRequest, debounce } from "./middleware";
+import { $, filterElements, mask, unmask, sleep, debounce } from "./utilities";
+import { loadTeamsRequest, deleteTeamRequest, createTeamRequest } from "./middleware";
 //import debounce from "lodash/debounce";
 //import * as middleware from "./middleware";
 console.warn("Starting app...");
