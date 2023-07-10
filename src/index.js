@@ -1,5 +1,7 @@
 import "./style.css";
 import { $, filterElements, mask, unmask, sleep } from "./utilities";
+import { loadTeamsRequest, deleteTeamRequest, createTeamRequest } from "./middleware";
+//import * as middleware from "./middleware";
 console.warn("Starting app...");
 
 let allTeams = [];
@@ -105,50 +107,6 @@ function displayTeams(teams) {
   previewDisplayTeams = teams;
   const teamsHTML = teams.map(getTeamAsHTML);
   $("#teamsTable tbody").innerHTML = teamsHTML.join("");
-}
-
-function loadTeamsRequest() {
-  return fetch("http://localhost:3000/teams-json", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json"
-    }
-  }).then(r => r.json());
-}
-
-function deleteTeamRequest(id, callback) {
-  return fetch("http://localhost:3000/teams-json/delete", {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ id: id })
-  })
-    .then(r => r.json())
-    .then(status => {
-      if (typeof callback === "function") callback(status);
-      return status;
-    });
-}
-
-function updateTeamRequest(team) {
-  return fetch("http://localhost:3000/teams-json/update", {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(team)
-  }).then(r => r.json());
-}
-
-function createTeamRequest(team) {
-  return fetch("http://localhost:3000/teams-json/create", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(team)
-  }).then(r => r.json());
 }
 
 function loadTeams() {
