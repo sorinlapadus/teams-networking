@@ -61,6 +61,12 @@ async function onSubmit(e) {
 }
 
 function initEvents() {
+  $("#removeSelected").addEventListener(
+    "click",
+    debounce(() => {
+      console.warn("remove all");
+    }, 1000)
+  );
   $("#teamsTable tbody").addEventListener("click", e => {
     if (e.target.matches("a.remove-btn")) {
       const id = e.target.dataset.id;
@@ -81,9 +87,8 @@ function initEvents() {
     teamEditId = undefined;
   });
 
-  let timer;
-
   function debounce(fn, msec) {
+    let timer;
     return function (e) {
       //console.warn("searching...", e.target.value);
       clearTimeout(timer);
