@@ -1,5 +1,5 @@
 import "./style.css";
-import { $, filterElements, mask, unmask, sleep, debounce } from "./utilities";
+import { $, filterElements, mask, unmask, sleep, debounce, checkAll } from "./utilities";
 import { loadTeamsRequest, deleteTeamRequest, createTeamRequest } from "./middleware";
 //import debounce from "lodash/debounce";
 //import * as middleware from "./middleware";
@@ -73,18 +73,10 @@ async function removeSelected() {
   unmask(form);
 }
 
-function checkAll(check) {
-  const checkboxes = document.querySelectorAll("input[name=selected]");
-  checkboxes.forEach(input => {
-    if (check) input.checked = true;
-    else input.checked = false;
-  });
-}
-
 function initEvents() {
   $("#selectAll").addEventListener("click", e => {
     console.warn(e.target.checked);
-    checkAll(e.target.checked);
+    checkAll("input[name=selected]", e.target.checked);
   });
   $("#removeSelected").addEventListener(
     "click",

@@ -41,3 +41,9 @@ export function debounce(fn, msec) {
     }, msec);
   };
 }
+export function checkAll(filter, check) {
+  const checkboxes = document.querySelectorAll(filter);
+  checkboxes.forEach(input => {
+    input.checked = check;
+  });
+}
