@@ -10,7 +10,7 @@ let teamEditId = null;
 const form = "#teamsForm";
 function getTeamAsHTML({ id, url, promotion, members, name }) {
   return `<tr>
-    <td style='align-content: center'><input type='checkbox' name='selected' value=${id}></td>
+    <td style='text-align: center'><input type='checkbox' name='selected' value=${id}></td>
     <td>${promotion}</td>
     <td>${members}</td>
     <td>${name}</td>
