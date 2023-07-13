@@ -78,7 +78,7 @@ h1 {
 #teamsTable {
   width: 100%;
   border-collapse: collapse;
-  padding: 15px;
+  table-layout: fixed;
 }
 
 #teamsTable tr:nth-child(even) {
@@ -86,13 +86,12 @@ h1 {
 }
 #teamsTable tr:nth-child(odd) {
   background-color: lightgray;
-  table-layout: fixed;
 }
 
 #teamsTable th,
 #teamsTable td {
-  border: 1px solid;
-  /*color: #057988;*/
+  border: 1px solid #057988;
+  padding: 5px;
   line-height: 25px;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -101,47 +100,40 @@ h1 {
 
 #teamsTable input[type="text"] {
   align-self: center;
-  width: 97%;
+  width: 100%;
   box-sizing: border-box;
 }
 
-#teamsTable tr .action-btn {
-  display: inline-block;
-}
-
 .table-actions {
-  width: 80px;
+  width: 90px;
 }
 .select-all-col {
-  width: 50px;
+  width: 40px;
 }
 .action-btn {
   cursor: pointer;
   min-width: 24px;
 }
-a.remove-btn:hover {
-  cursor: pointer;
-  text-decoration: underline;
+.remove-btn {
   color: #b90303;
 }
-a.edit-btn:hover {
-  cursor: pointer;
-  text-decoration: underline;
+.edit-btn {
   color: #039903;
 }
-.edit-btn {
-  display: none;
-}
+
+.edit-btn,
 .remove-btn {
   display: none;
 }
-a {
-  color: #0096d6;
-  text-decoration: none;
+
+#teamsTable tr:hover .action-btn {
+  display: inline-block;
 }
+
 a:visited {
   color: #02638d;
 }
+
 a:hover {
   text-decoration: underline;
 }

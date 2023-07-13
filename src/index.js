@@ -20,8 +20,8 @@ function getTeamAsHTML({ id, url, promotion, members, name }) {
     <td>${name}</td>
     <td><a href="${url}" target="_blank">${url}</a></td>
     <td>
-      <button data-id="${id}" class="action-btn edit-btn">&#9998;</button>
-      <button data-id="${id}" class="action-btn remove-btn">&#x2672</button>
+      <button type='button' data-id="${id}" class="action-btn edit-btn">&#9998;</button>
+      <button type='button' data-id="${id}" class="action-btn remove-btn">&#x2672</button>
     </td>
   </tr>`;
 }
@@ -113,7 +113,7 @@ function initEvents() {
     }, 1000)
   );
   $("#teamsTable tbody").addEventListener("click", e => {
-    if (e.target.matches("a.remove-btn")) {
+    if (e.target.matches(".remove-btn")) {
       const id = e.target.dataset.id;
       deleteTeamRequest(id, async ({ success }) => {
         if (success) {
@@ -121,7 +121,7 @@ function initEvents() {
           unmask(form);
         }
       });
-    } else if (e.target.matches("a.edit-btn")) {
+    } else if (e.target.matches(".edit-btn")) {
       const id = e.target.dataset.id;
       startEdit(id);
     }
