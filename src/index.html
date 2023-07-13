@@ -27,6 +27,7 @@
       <form action="" id="teamsForm">
         <table id="teamsTable">
           <colgroup>
+            <col span="1" style="width: 50px" />
             <col span="1" style="width: 125px" />
             <col span="1" style="width: 125px" />
             <col span="1" style="width: 125px" />
@@ -34,6 +35,7 @@
             <col span="1" style="width: 80px" />
           </colgroup>
           <thead>
+            <th><input type="checkbox" name="selectAll" id="selectAll" /></th>
             <th>Promotion</th>
             <th>Members</th>
             <th>Project Name</th>
@@ -43,6 +45,7 @@
           <tbody></tbody>
           <tfoot>
             <tr id="edit-form">
+              <td></td>
               <td>
                 <input type="text" required="" id="promotion" name="promotion" placeholder="Enter promotion" required />
               </td>

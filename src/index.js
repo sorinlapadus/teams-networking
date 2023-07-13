@@ -10,6 +10,7 @@ let teamEditId = null;
 const form = "#teamsForm";
 function getTeamAsHTML({ id, url, promotion, members, name }) {
   return `<tr>
+    <td><input type='checkbox' name='selected' value=${id}></td>
     <td>${promotion}</td>
     <td>${members}</td>
     <td>${name}</td>
@@ -61,11 +62,24 @@ async function onSubmit(e) {
   }
 }
 
+function removeSelected() {
+  mask(form);
+  const selected = document.querySelectorAll("input[name=selected]:checked");
+  console.warn("selected:", selected);
+  selected.forEach(input => {
+    const id = input.value;
+    console.warn("removeSelected id", id);
+    deleteTeamRequest(id);
+  });
+  loadTeams();
+  unmask(form);
+}
+
 function initEvents() {
   $("#removeSelected").addEventListener(
     "click",
     debounce(() => {
-      console.warn("remove all");
+      removeSelected();
     }, 1000)
   );
   $("#teamsTable tbody").addEventListener("click", e => {
