@@ -73,7 +73,19 @@ async function removeSelected() {
   unmask(form);
 }
 
+function checkAll(check) {
+  const checkboxes = document.querySelectorAll("input[name=selected]");
+  checkboxes.forEach(input => {
+    if (check) input.checked = true;
+    else input.checked = false;
+  });
+}
+
 function initEvents() {
+  $("#selectAll").addEventListener("click", e => {
+    console.warn(e.target.checked);
+    checkAll(e.target.checked);
+  });
   $("#removeSelected").addEventListener(
     "click",
     debounce(() => {
