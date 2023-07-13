@@ -7,17 +7,45 @@ console.warn("Starting app...");
 
 let allTeams = [];
 let teamEditId = null;
+
 const form = "#teamsForm";
+
 function getTeamAsHTML({ id, url, promotion, members, name }) {
   return `<tr>
-    <td style='text-align: center'><input type='checkbox' name='selected' value=${id}></td>
+    <td style='text-align: center'>
+      <input type='checkbox' name='selected' value=${id}>
+    </td>
     <td>${promotion}</td>
     <td>${members}</td>
     <td>${name}</td>
     <td><a href="${url}" target="_blank">${url}</a></td>
     <td>
-    <a data-id="${id}" class="remove-btn">x</a>
-    <a data-id="${id}" class="edit-btn">&#9998;</a>
+      <a data-id="${id}" class="remove-btn">x</a>
+      <a data-id="${id}" class="edit-btn">&#9998;</a>
+    </td>
+  </tr>`;
+}
+
+function getTeamAsHTMLInputs({ id, url, promotion, members, name }) {
+  return `<tr>
+    <td style='text-align: center'>
+      <input type='checkbox' name='selected' value=${id}>
+    </td>
+    <td>
+      <input type="text" value="${promotion}" name="promotion" placeholder="Enter promotion" required />
+    </td>
+    <td>
+      <input type="text" value="${members}" name="members" placeholder="Enter members" required />
+    </td>
+    <td>
+      <input type="text" value="${name}" name="name" placeholder="Enter project name" required />
+    </td>
+    <td>
+      <input type="text" value="${url}" name="url" placeholder="Enter project URL" required />
+    </td>
+    <td>
+      <button type="submit">💾</button>
+      <button type="reset">✖</button>
     </td>
     </tr>`;
 }
@@ -115,12 +143,12 @@ function initEvents() {
 }
 
 let previewDisplayTeams = [];
-function displayTeams(teams) {
-  if (teams === previewDisplayTeams) {
+function displayTeams(teams, teamEditId) {
+  if (!teamEditId && teams === previewDisplayTeams) {
     console.warn("displayTeams: no need to display, same teams");
     return;
   }
-  if (teams.length === previewDisplayTeams.length) {
+  if (!teamEditId && teams.length === previewDisplayTeams.length) {
     if (
       teams.every((team, i) => {
         return team === previewDisplayTeams[i];
@@ -131,7 +159,7 @@ function displayTeams(teams) {
     }
   }
   previewDisplayTeams = teams;
-  const teamsHTML = teams.map(getTeamAsHTML);
+  const teamsHTML = teams.map(t => (t.id === teamEditId ? getTeamAsHTMLInputs(t) : getTeamAsHTML(t)));
   $("#teamsTable tbody").innerHTML = teamsHTML.join("");
 }
 
@@ -151,9 +179,10 @@ function setTeamValues(team) {
 }
 
 function startEdit(id) {
-  const team = allTeams.find(team => team.id == id);
-  setTeamValues(team);
   teamEditId = id;
+  //const team = allTeams.find(team => team.id == id);
+  //setTeamValues(team);
+  displayTeams(allTeams, id);
 }
 
 (async () => {
