@@ -20,8 +20,8 @@ function getTeamAsHTML({ id, url, promotion, members, name }) {
     <td>${name}</td>
     <td><a href="${url}" target="_blank">${url}</a></td>
     <td>
-      <a data-id="${id}" class="remove-btn">x</a>
-      <a data-id="${id}" class="edit-btn">&#9998;</a>
+      <button data-id="${id}" class="action-btn edit-btn">&#9998;</button>
+      <button data-id="${id}" class="action-btn remove-btn">&#x2672</button>
     </td>
   </tr>`;
 }
@@ -44,8 +44,8 @@ function getTeamAsHTMLInputs({ id, url, promotion, members, name }) {
       <input type="text" value="${url}" name="url" placeholder="Enter project URL" required />
     </td>
     <td>
-      <button type="submit">💾</button>
-      <button type="reset">✖</button>
+      <button type="submit" class='action-btn'>💾</button>
+      <button type="reset" class='action-btn'>✖</button>
     </td>
     </tr>`;
 }
