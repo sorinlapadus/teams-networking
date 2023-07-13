@@ -1,5 +1,5 @@
 import "./style.css";
-import { $, filterElements, mask, unmask, sleep, debounce, checkAll } from "./utilities";
+import { $, $$, filterElements, mask, unmask, sleep, debounce, checkAll } from "./utilities";
 import { loadTeamsRequest, deleteTeamRequest, createTeamRequest } from "./middleware";
 //import debounce from "lodash/debounce";
 //import * as middleware from "./middleware";
@@ -64,7 +64,7 @@ async function onSubmit(e) {
 
 async function removeSelected() {
   mask(form);
-  const selected = document.querySelectorAll("input[name=selected]:checked");
+  const selected = $$("input[name=selected]:checked");
   const ids = [...selected].map(input => input.value);
   const promises = ids.map(id => deleteTeamRequest(id));
   promises.push(sleep(2000));

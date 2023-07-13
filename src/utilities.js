@@ -1,6 +1,9 @@
 export function $(selector) {
   return document, document.querySelector(selector);
 }
+export function $$(selector) {
+  return document, document.querySelectorAll(selector);
+}
 export function mask(element) {
   if (typeof element === "string") {
     element = $(element);
