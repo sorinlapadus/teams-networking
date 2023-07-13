@@ -92,11 +92,13 @@ h1 {
 #teamsTable td {
   border: 1px solid;
   /*color: #057988;*/
+  line-height: 25px;
 }
 
-#teamsTable tfoot input[type="text"] {
+#teamsTable input[type="text"] {
   align-self: center;
   width: 97%;
+  box-sizing: border-box;
 }
 
 a.remove-btn:hover {
