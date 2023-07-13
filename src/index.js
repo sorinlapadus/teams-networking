@@ -62,16 +62,13 @@ async function onSubmit(e) {
   }
 }
 
-function removeSelected() {
+async function removeSelected() {
   mask(form);
   const selected = document.querySelectorAll("input[name=selected]:checked");
-  console.warn("selected:", selected);
-  selected.forEach(input => {
-    const id = input.value;
-    console.warn("removeSelected id", id);
-    deleteTeamRequest(id);
-  });
-  loadTeams();
+  const ids = [...selected].map(input => input.value);
+  const promises = ids.map(id => deleteTeamRequest(id));
+  const statuses = await Promise.allSettled(promises);
+  await loadTeams();
   unmask(form);
 }
 
