@@ -10,7 +10,7 @@ let teamEditId = null;
 const form = "#teamsForm";
 function getTeamAsHTML({ id, url, promotion, members, name }) {
   return `<tr>
-    <td><input type='checkbox' name='selected' value=${id}></td>
+    <td style='align-content: center'><input type='checkbox' name='selected' value=${id}></td>
     <td>${promotion}</td>
     <td>${members}</td>
     <td>${name}</td>
@@ -67,6 +67,7 @@ async function removeSelected() {
   const selected = document.querySelectorAll("input[name=selected]:checked");
   const ids = [...selected].map(input => input.value);
   const promises = ids.map(id => deleteTeamRequest(id));
+  promises.push(sleep(2000));
   const statuses = await Promise.allSettled(promises);
   await loadTeams();
   unmask(form);
