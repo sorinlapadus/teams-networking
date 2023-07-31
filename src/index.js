@@ -51,10 +51,10 @@ function getTeamAsHTMLInputs({ id, url, promotion, members, name }) {
 }
 
 function getTeamValues() {
-  const promotion = $("#promotion").value;
-  const members = $("#members").value;
-  const name = $("#name").value;
-  const url = $("#url").value;
+  const promotion = $("input[name=promotion]").value;
+  const members = $("input[name=members]").value;
+  const name = $("input[name=name]").value;
+  const url = $("input[name=url]").value;
   return { promotion: promotion, members: members, name: name, url: url };
 }
 
@@ -141,6 +141,7 @@ function initEvents() {
     if (teamEditId) {
       teamEditId = undefined;
       displayTeams(allTeams, teamEditId, true);
+      setInputsDisabled(false);
     }
   });
 
@@ -184,10 +185,10 @@ function loadTeams() {
 }
 
 function setTeamValues(team) {
-  $("#promotion").value = team.promotion;
-  $("#members").value = team.members;
-  $("#name").value = team.name;
-  $("#url").value = team.url;
+  $("input[name=promotion]").value = team.promotion;
+  $("input[name=members]").value = team.members;
+  $("input[name=name]").value = team.name;
+  $("input[name=url]").value = team.url;
 }
 
 function startEdit(id) {
@@ -195,11 +196,14 @@ function startEdit(id) {
   //const team = allTeams.find(team => team.id == id);
   //setTeamValues(team);
   displayTeams(allTeams, id);
-  setInputsDisabled(false);
+  setInputsDisabled(true);
 }
 
 function setInputsDisabled(disabled) {
   $$("tfoot input").forEach(input => {
+    input.disabled = disabled;
+  });
+  $$("tfoot button").forEach(input => {
     input.disabled = disabled;
   });
 }
