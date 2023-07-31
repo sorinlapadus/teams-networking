@@ -200,10 +200,7 @@ function startEdit(id) {
 }
 
 function setInputsDisabled(disabled) {
-  $$("tfoot input").forEach(input => {
-    input.disabled = disabled;
-  });
-  $$("tfoot button").forEach(input => {
+  $$("tfoot input, tfoot button").forEach(input => {
     input.disabled = disabled;
   });
 }
