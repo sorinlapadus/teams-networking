@@ -1,6 +1,6 @@
 import "./style.css";
 import { $, $$, filterElements, mask, unmask, sleep, debounce, checkAll } from "./utilities";
-import { loadTeamsRequest, deleteTeamRequest, createTeamRequest } from "./middleware";
+import { loadTeamsRequest, deleteTeamRequest, createTeamRequest, updateTeamRequest } from "./middleware";
 //import debounce from "lodash/debounce";
 //import * as middleware from "./middleware";
 console.warn("Starting app...");
@@ -138,7 +138,10 @@ function initEvents() {
 
   $("#teamsForm").addEventListener("submit", onSubmit);
   $("#teamsForm").addEventListener("reset", () => {
-    teamEditId = undefined;
+    if (teamEditId) {
+      teamEditId = undefined;
+      displayTeams(allTeams, teamEditId, true);
+    }
   });
 
   $("#searchTeams").addEventListener(
@@ -152,12 +155,12 @@ function initEvents() {
 }
 
 let previewDisplayTeams = [];
-function displayTeams(teams, teamEditId) {
-  if (!teamEditId && teams === previewDisplayTeams) {
+function displayTeams(teams, teamEditId, force) {
+  if (!force && !teamEditId && teams === previewDisplayTeams) {
     console.warn("displayTeams: no need to display, same teams");
     return;
   }
-  if (!teamEditId && teams.length === previewDisplayTeams.length) {
+  if (!force && !teamEditId && teams.length === previewDisplayTeams.length) {
     if (
       teams.every((team, i) => {
         return team === previewDisplayTeams[i];
@@ -192,6 +195,13 @@ function startEdit(id) {
   //const team = allTeams.find(team => team.id == id);
   //setTeamValues(team);
   displayTeams(allTeams, id);
+  setInputsDisabled(false);
+}
+
+function setInputsDisabled(disabled) {
+  $$("tfoot input").forEach(input => {
+    input.disabled = disabled;
+  });
 }
 
 (async () => {
